@@ -21,14 +21,15 @@ $products = $statement->fetchAll(PDO::FETCH_ASSOC);
                                 <p class="card-text"><?= $product['description'] ?></p>
                                 <div class="price-container">
                                     <a href="#" class="btn btn-primary">Comprar</a>
-                                    <h4><?= number_format($product['price'], 2, '.', ',') ?></h4>
+                                    <h4>$<?= number_format($product['price'], 2, '.', ',') ?></h4>
                                 </div>
                                 <div class="stars">
+                                <?php for($i = 0; $i < $product['rate']; $i++): ?>
                                     <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
+                                <?php endfor; ?>
+                                <?php for($i = 0; $i < 5 - $product['rate']; $i++): ?>
+                                    <i class="fa-regular fa-star"></i>
+                                <?php endfor; ?>
                                 </div>
                             </div>
                         </div>

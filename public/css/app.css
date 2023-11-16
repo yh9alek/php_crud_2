@@ -37,6 +37,10 @@ form {
     width: 500px;
 }
 
+.card {
+    height: 400px !important;
+}
+
 img.card-img-top {
     width: 100%;
     height: 200px;

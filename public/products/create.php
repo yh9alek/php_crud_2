@@ -3,6 +3,12 @@
 require_once "../../database.php";
 
 $images_path = 'images';
+$errors = [];
+$title =  '';
+$description = '';
+$price = 0;
+$rate = 0;
+
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     # Obtengo la información del formulario por POST
     $title = $_POST['title'] ?? '';
@@ -11,10 +17,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $rate = $_POST['rate'] ?? 0;
     $image = $_FILES['image'] ?? null;
 
-    $errors = [];
     # Valido campos vacíos
     if(empty($title)) $errors[] = 'El título no se proporcionó.';
-    if(empty($description)) $errors[] = 'La descripción no se proporcionó.';
     if(empty($price)) $errors[] = 'El precio no se proporcionó.';
     # Valido la calificación dada, que no exceda las 5 estrellas y que no sean menor a 0
     if(empty($rate) || $rate < 0) $rate = 0;
@@ -24,14 +28,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo $images_path;
     if(!is_dir($images_path)) mkdir($images_path);
 
-    if(empty($erros)){
+    if(empty($errors)){
         $path = '';
-        if($image) {
+        if($image['name']) {
             $new_dir_path = $images_path.'/'.getRandomString(8);
             mkdir($new_dir_path);
             $path = $new_dir_path.'/'.$image['name'];
             move_uploaded_file($image['tmp_name'], $path);
         }
+        else $path = 'images/empty.jpg';
 
         $statement = $pdo->prepare('INSERT INTO products_crud_2 (title, description, image, price, rate) 
         VALUES (:title, :description, :image, :price, :rate);');
@@ -71,22 +76,22 @@ function getRandomString($n) {
                 </div>
                 <div class="mb-3">
                     <label for="title" class="form-label">Título</label>
-                    <input name="title" type="text" class="form-control" id="title" placeholder="Título de ejemplo">
+                    <input value="<?= $title ?>" name="title" type="text" class="form-control" id="title" placeholder="Título de ejemplo">
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">Descripción</label>
-                    <textarea name="description" class="form-control" id="description" rows="3" placeholder="Este es un producto 👍"></textarea>
+                    <textarea value="<?= $description ?>" name="description" class="form-control" id="description" rows="3" placeholder="Este es un producto 👍"></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="price" class="form-label">Precio</label>
-                    <input name="price" type="number" class="form-control" id="price" min="0" value="0">
+                    <input value="<?= $price ?>" name="price" type="number" class="form-control" id="price" min="0" value="0">
                 </div>
                 <div class="mb-3">
                     <label for="rate" class="form-label">Calificación</label>
                     <div class="rate-container">
                         <div class="stars">
                             <i class="fa-solid fa-star"></i>
-                            <input name="rate" type="number" class="form-control" id="rate" min="0" max="5" value="1">
+                            <input value="<?= $rate ?>" name="rate" type="number" class="form-control" id="rate" min="0" max="5" value="1">
                         </div>
                         <button type="submit" class="btn btn-primary">Agregar</button>
                     </div>
