@@ -3,6 +3,7 @@
     margin: 0;
     box-sizing: border-box;
     outline: none !important;
+    text-decoration: none !important;
 }
 
 nav {

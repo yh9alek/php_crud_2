@@ -124,7 +124,7 @@ function getEditProduct($method) {
                                 <input value="<?= $_product['rate'] ?? '' ?>" name="rate" type="number" class="form-control" id="rate" min="0" max="5" value="1" <?php if(!$id) echo 'disabled'; ?>>
                             </div>
                             <input type="hidden" name="id" value="<?= $_product['id'] ?>">
-                            <button type="submit" class="btn btn-primary" <?php if(!$id) echo 'disabled'; ?>>Agregar</button>
+                            <button type="submit" class="btn btn-primary" <?php if(!$id) echo 'disabled'; ?>>Editar</button>
                         </div>
                     </div>
                 </form>
