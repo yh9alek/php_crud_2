@@ -136,6 +136,25 @@ textarea {
     width: 70px;
 }
 
+.edit-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 50px;
+}
+
+.products-list > .products {
+    height: 700px;
+    width: 500px;
+    overflow: auto;
+}
+
+.product-item:hover {
+    background-color: #0D6EFD;
+    color: #fff;
+    cursor: pointer;
+}
+
 /* MEDIA QUERYS */
 @media screen and (min-width: 1200px) {
     .container {

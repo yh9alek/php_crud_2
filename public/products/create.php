@@ -25,7 +25,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     if($rate > 5) $rate = 5;
 
     # Verifico si existe la carpeta de imagenes
-    echo $images_path;
     if(!is_dir($images_path)) mkdir($images_path);
 
     if(empty($errors)){
